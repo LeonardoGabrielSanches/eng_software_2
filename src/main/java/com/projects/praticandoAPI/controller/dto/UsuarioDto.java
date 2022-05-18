@@ -16,6 +16,9 @@ public class UsuarioDto {
 	private TipoPlano tipoPlano;
 	private Boolean direitoAGamificacaoEDesafios;
 
+	public UsuarioDto() {
+	}
+
 	public UsuarioDto(Usuario usuario) {
 		super();
 		this.id = usuario.getId();
