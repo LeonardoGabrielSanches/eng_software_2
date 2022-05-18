@@ -15,13 +15,7 @@ jobs:
           distribution: 'adopt'
       - name: Build and Test
         run: mvn --batch-mode --update-snapshots package
-        
-  unitTestPublish:
-    runs-on: ubuntu-latest
-    
-    steps:
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1.35
         with:
           files: "test-results/**/*.xml"
-
