@@ -21,7 +21,7 @@ public class JogadorTest {
 		
 		jogador.setGols(8);
 		
-		assertEquals(jogador.getGols(), 5);
+		assertEquals(jogador.getGols(), 8);
 	}
 
 }
