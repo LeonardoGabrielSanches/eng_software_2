@@ -17,11 +17,14 @@ jobs:
       - name: test
         run: mvn test
           
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - name: Report
+        uses: dorny/test-reporter@v1
         if: always()
         with:
-          junit_files: "*.xml"
+          name: Maven Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: true
           
       - name: build
         run: mvn clean package
