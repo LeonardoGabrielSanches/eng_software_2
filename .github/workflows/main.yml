@@ -55,20 +55,15 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./docker-compose.yml
+          file: ./Dockerfile
           push: true
           tags: dockerleonardosanches/praticandodocker:latest
           
-          
-      - name: Build and Push container heroku
-        uses: gonuit/heroku-docker-deploy@v1.3.3
+      - name: Build, Push and Deploy to Heroku 
+        id: heroku
+        uses: snithyanantham/docker-compose-multiple-apps-heroku-deploy@v1.0 
         with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          
-          dockerfile_directory: ./
-
-          dockerfile_name: Dockerfile
+          email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
+          api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
+          docker_compose_file: './docker-compose.yml' 
+          heroku_apps: '[{"imagename":"dockerleonardosanches/praticandodocker","appname":"engsoftwareii","apptype":"web"},{"imagename":"postgres","appname":"postgres-engsoftwareii","apptype":"worker"}]' # List of Docker Image name, Heroku app and Heroku app type
