@@ -52,7 +52,8 @@ jobs:
          echo spring.h2.console.enabled=true >> src/main/resources/application.properties
          echo spring.h2.console.path=/h2-console >> src/main/resources/application.properties
 
-         echo "cat .src/main/resources/application.properties"
+         echo "cat src/main/resources/application.properties"
+         cat src/main/resources/application.properties
           
       - name: build
         run: mvn package -Dmaven.test.skip
