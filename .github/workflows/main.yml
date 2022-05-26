@@ -43,17 +43,10 @@ jobs:
         run: |
          rm -f src/main/resources/application.properties
          touch src/main/resources/application.properties
-         echo spring.datasource.driverClassName=org.h2.Driver >> src/main/resources/application.properties
          echo spring.datasource.url=${{ secrets.POSTGRES_URL }} >> src/main/resources/application.properties
          echo spring.datasource.username=${{ secrets.POSTGRES_USER }} >> src/main/resources/application.properties
          echo spring.datasource.password=${{ secrets.POSTGRES_PASSWORD }} >> src/main/resources/application.properties
-         echo spring.jpa.database-platform=org.hibernate.dialect.H2Dialect >> src/main/resources/application.properties
          echo spring.jpa.hibernate.ddl-auto=update >> src/main/resources/application.properties
-         echo spring.h2.console.enabled=true >> src/main/resources/application.properties
-         echo spring.h2.console.path=/h2-console >> src/main/resources/application.properties
-
-         echo "cat src/main/resources/application.properties"
-         cat src/main/resources/application.properties
           
       - name: build
         run: mvn package -Dmaven.test.skip
