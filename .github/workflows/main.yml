@@ -16,22 +16,6 @@ jobs:
           
       - name: test
         run: mvn test
-        
-      - name: ALL
-        run: |
-         ls
-         
-      - name: TARGET
-        run: |
-         ls target
-         
-      - name: SITE
-        run: |
-         ls target/site
-         
-      - name: JACOCO
-        run: |
-          ls target/site/jacoco
           
       - name: Test Report
         uses: dorny/test-reporter@v1
@@ -39,5 +23,5 @@ jobs:
         with:
           name: Tests Report           # Name of the check run which will be created
           path: target/site/jacoco/jacoco.xml   # Path to test results
-          reporter: jest-junit        # Format of test results
+          reporter: java-junit         # Format of test results
           
