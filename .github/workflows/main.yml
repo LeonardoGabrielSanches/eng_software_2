@@ -17,12 +17,21 @@ jobs:
       - name: test
         run: mvn test
         
-      - name: File
+      - name: ALL
         run: |
          ls
+         
+      - name: TARGET
+        run: |
          ls target
-         ls site
-         ls jacoco
+         
+      - name: SITE
+        run: |
+         ls target/site
+         
+      - name: JACOCO
+        run: |
+          ls target/site/jacoco
           
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
