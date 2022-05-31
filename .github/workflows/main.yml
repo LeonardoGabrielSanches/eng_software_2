@@ -17,9 +17,9 @@ jobs:
       - name: test
         run: mvn test
           
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
         with:
-          files: "target/site/jacoco/jacoco.xml"
+          generate-branches-badge: true
+          jacoco-csv-file: target/site/jacoco/jacoco.csv
           
