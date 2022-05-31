@@ -15,13 +15,12 @@ jobs:
           distribution: 'adopt'
           
       - name: test
-        run: mvn test
+        run: mvn -B test
           
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
         with:
-          files: "target/site/jacoco/jacoco.xml"
+         generate-branches-badge: true
 
   build-deploy:
     runs-on: ubuntu-latest
