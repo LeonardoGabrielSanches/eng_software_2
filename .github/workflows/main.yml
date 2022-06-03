@@ -65,6 +65,7 @@ jobs:
          echo spring.datasource.username=${{ secrets.POSTGRES_USER }} >> src/main/resources/application.properties
          echo spring.datasource.password=${{ secrets.POSTGRES_PASSWORD }} >> src/main/resources/application.properties
          echo spring.jpa.hibernate.ddl-auto=validate >> src/main/resources/application.properties
+         echo server.port=${PORT:8080} >> src/main/resources/application.properties
           
       - name: build
         run: mvn package -Dmaven.test.skip
