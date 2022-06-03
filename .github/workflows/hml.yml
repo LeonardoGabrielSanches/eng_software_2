@@ -24,7 +24,7 @@ jobs:
          echo spring.datasource.url=${{ secrets.POSTGRES_URL_HML }} >> src/main/resources/application.properties
          echo spring.datasource.username=${{ secrets.POSTGRES_USER_HML }} >> src/main/resources/application.properties
          echo spring.datasource.password=${{ secrets.POSTGRES_PASSWORD_HML }} >> src/main/resources/application.properties
-         echo spring.jpa.hibernate.ddl-auto=validate >> src/main/resources/application.properties
+         echo spring.jpa.hibernate.ddl-auto=update >> src/main/resources/application.properties
          echo server.port=${PORT:8080} >> src/main/resources/application.properties
           
       - name: build
