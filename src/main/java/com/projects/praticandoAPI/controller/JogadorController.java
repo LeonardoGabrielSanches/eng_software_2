@@ -30,50 +30,50 @@ public class JogadorController {
 
 	@Autowired
 	private JogadorRepository jogadorRepository;
-	
+
 	@GetMapping
-	public List<JogadorDTO> lista(){
+	public List<JogadorDTO> lista() {
 		List<Jogador> jogadores = jogadorRepository.findAll();
 		return JogadorDTO.converter(jogadores);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<JogadorDTO> cadastrar(@RequestBody JogadorForm form,UriComponentsBuilder uriBuilder){
+	public ResponseEntity<JogadorDTO> cadastrar(@RequestBody JogadorForm form, UriComponentsBuilder uriBuilder) {
 		Jogador jogador = form.converter();
 		jogadorRepository.save(jogador);
-		
+
 		URI uri = uriBuilder.path("/jogadores/{id}").buildAndExpand(jogador.getId()).toUri();
 		return ResponseEntity.created(uri).body(new JogadorDTO(jogador));
 	}
-	
+
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<JogadorDTO> atualizaGols(@PathVariable Long id,@RequestBody AtualizaGolJogadorForm form){
+	public ResponseEntity<JogadorDTO> atualizaGols(@PathVariable Long id, @RequestBody AtualizaGolJogadorForm form) {
 		Optional<Jogador> jogador = jogadorRepository.findById(id);
-		
-		if(jogador.isEmpty()) 
+
+		if (!jogador.isPresent())
 			return ResponseEntity.notFound().build();
 		try {
 			jogador.get().setGols(form.getGols());
-			
+
 			jogadorRepository.save(jogador.get());
-			
-			return ResponseEntity.ok(new JogadorDTO(jogador.get()));	
+
+			return ResponseEntity.ok(new JogadorDTO(jogador.get()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return ResponseEntity.badRequest().build();
-		}	
-		
+		}
+
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity deletar(@PathVariable Long id) {
 		Optional<Jogador> jogador = jogadorRepository.findById(id);
-		
-		if(jogador.isEmpty()) 
+
+		if (!jogador.isPresent())
 			return ResponseEntity.notFound().build();
-		
+
 		jogadorRepository.delete(jogador.get());
-		
+
 		return ResponseEntity.noContent().build();
 	}
 }
