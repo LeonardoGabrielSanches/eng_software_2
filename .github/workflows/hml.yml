@@ -1,0 +1,46 @@
+name: Java CI Release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:     
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          
+      - name: Update application.properties file
+        run: |
+         rm -f src/main/resources/application.properties
+         touch src/main/resources/application.properties
+         echo spring.datasource.url=${{ secrets.POSTGRES_URL_HML }} >> src/main/resources/application.properties
+         echo spring.datasource.username=${{ secrets.POSTGRES_USER_HML }} >> src/main/resources/application.properties
+         echo spring.datasource.password=${{ secrets.POSTGRES_PASSWORD_HML }} >> src/main/resources/application.properties
+         echo spring.jpa.hibernate.ddl-auto=validate >> src/main/resources/application.properties
+         echo server.port=${PORT:8080} >> src/main/resources/application.properties
+          
+      - name: build
+        run: mvn package -Dmaven.test.skip
+          
+      - name: Build and Push container heroku
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_HML }}
+
+          dockerfile_directory: ./
+
+          dockerfile_name: Dockerfile
+
+          
