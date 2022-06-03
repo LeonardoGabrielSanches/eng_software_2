@@ -1,9 +1,9 @@
-name: Java CI
+name: Java CI Release
 
 on:
   push:
     branches:
-      - main
+      - release
 
 jobs:     
   build-deploy:
@@ -21,9 +21,9 @@ jobs:
         run: |
          rm -f src/main/resources/application.properties
          touch src/main/resources/application.properties
-         echo spring.datasource.url=${{ secrets.POSTGRES_URL }} >> src/main/resources/application.properties
-         echo spring.datasource.username=${{ secrets.POSTGRES_USER }} >> src/main/resources/application.properties
-         echo spring.datasource.password=${{ secrets.POSTGRES_PASSWORD }} >> src/main/resources/application.properties
+         echo spring.datasource.url=${{ secrets.POSTGRES_URL_HML }} >> src/main/resources/application.properties
+         echo spring.datasource.username=${{ secrets.POSTGRES_USER_HML }} >> src/main/resources/application.properties
+         echo spring.datasource.password=${{ secrets.POSTGRES_PASSWORD_HML }} >> src/main/resources/application.properties
          echo spring.jpa.hibernate.ddl-auto=validate >> src/main/resources/application.properties
          echo server.port=${PORT:8080} >> src/main/resources/application.properties
           
@@ -37,7 +37,7 @@ jobs:
 
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
 
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_HML }}
 
           dockerfile_directory: ./
 
