@@ -19,9 +19,9 @@ public class JogadorTest {
 	public void numeroDeGolsDeveSerAtualizado() {
 		Jogador jogador = new Jogador("Leonardo",0);
 		
-		jogador.setGols(8);
+		jogador.setGols(9);
 		
-		assertEquals(jogador.getGols(), 8);
+		assertEquals(jogador.getGols(), 9);
 	}
 
 }
